@@ -76,7 +76,7 @@ def get_iana_services():
     :rtype:dict[str,(str,str)]
     """
     os_dist = platform.system()
-    if os_dist == "Linux":
+    if os_dist in ("Linux", "Darwin"):
         services_file_path = "/etc/services"
     elif os_dist == "Windows":
         services_file_path = "C:\\windows\\system32\\etc\\services"
@@ -88,6 +88,8 @@ def get_iana_services():
             if not line.startswith("#") and not line.isspace():
                 split_line = line.split()
                 service_name = split_line[0]
+                if "/" not in split_line[1]:
+                    continue
                 service_port, service_protocol = split_line[1].split("/")
                 try:
                     services_dict[service_name].append((service_protocol, service_port))
@@ -111,7 +113,7 @@ def get_iana_protocols():
     :rtype:dict[int,str]
     """
     os_dist = platform.system()
-    if os_dist == "Linux":
+    if os_dist in ("Linux", "Darwin"):
         protocols_file_path = "/etc/protocols"
     elif os_dist == "Windows":
         protocols_file_path = "C:\\windows\\system32\\etc\\protocols"
