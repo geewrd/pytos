@@ -3,12 +3,11 @@ import configparser
 import logging
 
 from pytos.common.logging.definitions import COMMON_LOGGER_NAME
-from pytos.common.functions.file_monitor import FileMonitor
 
 logger = logging.getLogger(COMMON_LOGGER_NAME)
 
 
-class Secure_Config_Parser(configparser.ConfigParser, FileMonitor):
+class Secure_Config_Parser(configparser.ConfigParser):
     """This class is used to parse the Tufin PS library configuration files"""
     COMMON = "common"
     CUSTOM = "custom"
@@ -26,7 +25,6 @@ class Secure_Config_Parser(configparser.ConfigParser, FileMonitor):
             args = (config_file_path, custom_config_file_path)
         else:
             args = (config_file_path, )
-        FileMonitor.__init__(self, args)
         self._read_config_files()
 
     def _read_config_files(self):

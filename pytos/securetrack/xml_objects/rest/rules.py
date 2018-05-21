@@ -225,7 +225,7 @@ class Application(XML_Object_Base):
 class Rule(XML_Object_Base, Comparable):
     def __init__(self, num_id, uid, cp_uid, order, binding, action, comment, dst_networks, dst_networks_negated,
                  dst_services, dst_services_negated, disabled, external, name, rule_number, src_networks,
-                 src_networks_negated, src_services_negated, track, rule_type, documentation, device_id, implicit,
+                 src_networks_negated, src_services, src_services_negated, track, rule_type, documentation, device_id, implicit,
                  application, vpn, rule_text=None):
         self.id = num_id
         self.uid = uid
@@ -243,6 +243,7 @@ class Rule(XML_Object_Base, Comparable):
         self.name = name
         self.rule_number = rule_number
         self.src_networks = src_networks
+        self.src_services = src_services
         self.src_networks_negated = src_networks_negated
         self.src_services_negated = src_services_negated
         self.track = track
@@ -295,6 +296,7 @@ class Rule(XML_Object_Base, Comparable):
         src_networks = create_tagless_xml_objects_list(xml_node, xml_tags.Elements.SRC_NETWORK, Source_Network)
         dst_networks = create_tagless_xml_objects_list(xml_node, xml_tags.Elements.DST_NETWORK, Destination_Network)
         src_networks_negated = get_xml_text_value(xml_node, xml_tags.Elements.SRC_NETWORKS_NEGATED)
+        src_services = create_tagless_xml_objects_list(xml_node, xml_tags.Elements.SRC_SERVICE, Destination_Service)
         src_services_negated = get_xml_text_value(xml_node, xml_tags.Elements.SRC_SERVICES_NEGATED)
         track_node = get_xml_node(xml_node, xml_tags.Elements.TRACK, True)
         if track_node is not None:
@@ -319,7 +321,7 @@ class Rule(XML_Object_Base, Comparable):
 
         return cls(num_id, uid, cp_uid, order, binding, action, comment, dst_networks, dst_networks_negated,
                    dst_services, dst_services_negated, disabled, external, name, rule_number, src_networks,
-                   src_networks_negated, src_services_negated, track, rule_type, documentation, device_id, implicit,
+                   src_networks_negated, src_services, src_services_negated, track, rule_type, documentation, device_id, implicit,
                    application, vpn, rule_text)
 
     def __str__(self):
