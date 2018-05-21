@@ -646,6 +646,8 @@ class Elements:
     SRC_NETWORK = "src_network"
     SRC_NETWORKS = "src_networks"
     SRC_NETWORKS_NEGATED = "src_networks_negated"
+    SRC_SERVICE = "src_service"
+    SRC_SERVICES = "src_services"
     SRC_SERVICES_NEGATED = "src_services_negated"
     SRCNATMETHOD = "srcNatMethod"
     STATUS = "status"
